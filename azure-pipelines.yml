@@ -1,19 +1,38 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  branches:
+    include:
+      - main  # Define la rama que activará el pipeline
 
 pool:
-  vmImage: ubuntu-latest
+  name: casa  # Pool de agentes en EC2 (o cualquier pool que estés usando)
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - checkout: self  # Clonar el repositorio
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  # Instalar Node.js en el agente
+  - task: UseNode@1
+    inputs:
+      version: '18.x'  # Usa la versión 18.x de Node.js
+
+  # Instalar dependencias de Cypress
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb
+    displayName: 'Instalar dependencias de Cypress'
+
+  # Instalar las dependencias del proyecto (incluyendo Cypress)
+  - script: |
+      npm install
+    displayName: 'Instalar dependencias'
+
+  # Ejecutar las pruebas de Cypress usando npx
+  - script: |
+      npx cypress run
+    displayName: 'Ejecutar pruebas de Cypress'
+
+  # Opción de guardar reportes si es necesario
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '**/cypress/results/*.xml'
+      testRunTitle: 'Resultados de Cypress'
+      mergeTestResults: true

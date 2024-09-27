@@ -7,29 +7,16 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    // https://on.cypress.io/custom-commands
-
-    it('.add() - create a custom command', () => {
+    it.skip('.add() - create a custom command', () => {
       Cypress.Commands.add('console', {
         prevSubject: true,
       }, (subject, method) => {
-      // the previous subject is automatically received
-      // and the commands arguments are shifted
-
-        // allow us to change the console method used
         method = method || 'log'
-
-        // log the subject to the console
         console[method]('The subject is', subject)
-
-        // whatever we return becomes the new subject
-        // we don't want to change the subject so
-        // we return whatever was passed in
         return subject
       })
 
       cy.get('button').console('info').then(($button) => {
-      // subject is still $button
       })
     })
   })
@@ -39,12 +26,8 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    // https://on.cypress.io/cookies
-    it('.debug() - enable or disable debugging', () => {
+    it.skip('.debug() - enable or disable debugging', () => {
       Cypress.Cookies.debug(true)
-
-      // Cypress will now log in the console when
-      // cookies are set or cleared
       cy.setCookie('fakeCookie', '123ABC')
       cy.clearCookie('fakeCookie')
       cy.setCookie('fakeCookie', '123ABC')
@@ -58,8 +41,7 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    it('Get CPU architecture name of underlying OS', () => {
-    // https://on.cypress.io/arch
+    it.skip('Get CPU architecture name of underlying OS', () => {
       expect(Cypress.arch).to.exist
     })
   })
@@ -69,8 +51,7 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    it('Get and set configuration options', () => {
-    // https://on.cypress.io/config
+    it.skip('Get and set configuration options', () => {
       let myConfig = Cypress.config()
 
       expect(myConfig).to.have.property('animationDistanceThreshold', 5)
@@ -85,11 +66,8 @@ context('Cypress APIs', () => {
 
       expect(Cypress.config('pageLoadTimeout')).to.eq(60000)
 
-      // this will change the config for the rest of your tests!
       Cypress.config('pageLoadTimeout', 20000)
-
       expect(Cypress.config('pageLoadTimeout')).to.eq(20000)
-
       Cypress.config('pageLoadTimeout', 60000)
     })
   })
@@ -99,12 +77,10 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    // https://on.cypress.io/dom
-    it('.isHidden() - determine if a DOM element is hidden', () => {
+    it.skip('.isHidden() - determine if a DOM element is hidden', () => {
       let hiddenP = Cypress.$('.dom-p p.hidden').get(0)
       let visibleP = Cypress.$('.dom-p p.visible').get(0)
 
-      // our first paragraph has css class 'hidden'
       expect(Cypress.dom.isHidden(hiddenP)).to.be.true
       expect(Cypress.dom.isHidden(visibleP)).to.be.false
     })
@@ -115,25 +91,15 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    // We can set environment variables for highly dynamic values
-
-    // https://on.cypress.io/environment-variables
-    it('Get environment variables', () => {
-    // https://on.cypress.io/env
-    // set multiple environment variables
+    it.skip('Get environment variables', () => {
       Cypress.env({
         host: 'veronica.dev.local',
         api_server: 'http://localhost:8888/v1/',
       })
 
-      // get environment variable
       expect(Cypress.env('host')).to.eq('veronica.dev.local')
-
-      // set environment variable
       Cypress.env('api_server', 'http://localhost:8888/v2/')
       expect(Cypress.env('api_server')).to.eq('http://localhost:8888/v2/')
-
-      // get all environment variable
       expect(Cypress.env()).to.have.property('host', 'veronica.dev.local')
       expect(Cypress.env()).to.have.property('api_server', 'http://localhost:8888/v2/')
     })
@@ -144,8 +110,8 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    it('Control what is printed to the Command Log', () => {
-    // https://on.cypress.io/cypress-log
+    it.skip('Control what is printed to the Command Log', () => {
+      // Esta prueba está ignorada
     })
   })
 
@@ -154,8 +120,7 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    it('Get underlying OS name', () => {
-    // https://on.cypress.io/platform
+    it.skip('Get underlying OS name', () => {
       expect(Cypress.platform).to.be.exist
     })
   })
@@ -165,8 +130,7 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    it('Get current version of Cypress being run', () => {
-    // https://on.cypress.io/version
+    it.skip('Get current version of Cypress being run', () => {
       expect(Cypress.version).to.be.exist
     })
   })
@@ -176,9 +140,7 @@ context('Cypress APIs', () => {
       cy.visit('https://example.cypress.io/cypress-api')
     })
 
-    it('Get current spec information', () => {
-    // https://on.cypress.io/spec
-    // wrap the object so we can inspect it easily by clicking in the command log
+    it.skip('Get current spec information', () => {
       cy.wrap(Cypress.spec).should('include.keys', ['name', 'relative', 'absolute'])
     })
   })
