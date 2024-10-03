@@ -23,3 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("setupProxy", () => {
+  cy.intercept("GET", "https://app.powerbi.com/*", (req) => {
+    req.headers["Access-Control-Allow-Origin"] = "*"; // Allow all origins
+    req.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"; // Allow methods
+  }).as("powerBi");
+});
