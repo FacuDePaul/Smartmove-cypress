@@ -4,7 +4,6 @@ describe("There is a dashboard for inmobiliaria", () => {
   });
 
   it("should find an iframe element inside the page for inmobiliaria", () => {
-    window;
     cy.visit("", {
       onBeforeLoad(win) {
         cy.spy(win, "postMessage").as("postMessage");
