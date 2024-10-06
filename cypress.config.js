@@ -12,8 +12,8 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implementar node event listeners aquí si es necesario
     },
-    baseUrl: "https://main.djeml4cm1lzmh.amplifyapp.com/", // URL base
-    //baseUrl: "http://localhost:3000/", // URL base
+    //baseUrl: "https://main.djeml4cm1lzmh.amplifyapp.com/", // URL base
+    baseUrl: "http://localhost:3000/", // URL base
     excludeSpecPattern: [
       "cypress/e2e/1-getting-started/*.js",
       "cypress/e2e/2-advanced-examples/*.js",
