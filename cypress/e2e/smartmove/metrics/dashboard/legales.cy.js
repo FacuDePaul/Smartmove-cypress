@@ -1,10 +1,6 @@
 describe("Test dashboard for Legales", () => {
   it("shoud log in with role legales", () => {
-    cy.visit("/login/cliente", {
-      onBeforeLoad(win) {
-        cy.spy(win, "postMessage").as("postMessage");
-      },
-    });
+    cy.visit("/login/cliente");
 
     // Enter the username
     cy.get('input[name="correo"]').type("llopez");
@@ -22,8 +18,14 @@ describe("Test dashboard for Legales", () => {
       .click();
 
     cy.url().should("include", "/legales");
+  });
 
-    cy.spy(window, "postMessage").as("postMessage");
+  it("should see dashboard for Legales", () => {
+    cy.visit("/legales", {
+      onBeforeLoad(win) {
+        cy.spy(win, "postMessage").as("postMessage");
+      },
+    });
 
     cy.get("iframe").should("exist");
 

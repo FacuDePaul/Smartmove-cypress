@@ -1,10 +1,6 @@
 describe("Test dashboard for Empleado", () => {
   it("shoud log in with role empleado", () => {
-    cy.visit("/login/cliente", {
-      onBeforeLoad(win) {
-        cy.spy(win, "postMessage").as("postMessage");
-      },
-    });
+    cy.visit("/login/cliente");
 
     // Enter the username
     cy.get('input[name="correo"]').type("mhuber");
@@ -22,8 +18,14 @@ describe("Test dashboard for Empleado", () => {
       .click();
 
     cy.url().should("include", "/empleado");
+  });
 
-    cy.spy(window, "postMessage").as("postMessage");
+  it("should see dashboard for Empleado", () => {
+    cy.visit("/empleado", {
+      onBeforeLoad(win) {
+        cy.spy(win, "postMessage").as("postMessage");
+      },
+    });
 
     cy.get("iframe").should("exist");
 

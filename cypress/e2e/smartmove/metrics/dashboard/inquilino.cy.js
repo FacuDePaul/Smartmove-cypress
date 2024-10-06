@@ -1,10 +1,6 @@
 describe("Test dashboard for Inquilino", () => {
   it("shoud log in with role inquilino", () => {
-    cy.visit("/login/cliente", {
-      onBeforeLoad(win) {
-        cy.spy(win, "postMessage").as("postMessage");
-      },
-    });
+    cy.visit("/login/cliente");
 
     // Enter the username
     cy.get('input[name="correo"]').type("sdevita");
@@ -22,8 +18,14 @@ describe("Test dashboard for Inquilino", () => {
       .click();
 
     cy.url().should("include", "/inquilino");
+  });
 
-    cy.spy(window, "postMessage").as("postMessage");
+  it("should see dashboard for Inquilino", () => {
+    cy.visit("/inquilino", {
+      onBeforeLoad(win) {
+        cy.spy(win, "postMessage").as("postMessage");
+      },
+    });
 
     cy.get("iframe").should("exist");
 
