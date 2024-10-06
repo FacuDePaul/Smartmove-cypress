@@ -1,10 +1,6 @@
 describe("Test dashboard for Legales", () => {
   it("shoud log in with role legales", () => {
-    cy.visit("/login/cliente", {
-      onBeforeLoad(win) {
-        cy.spy(win, "postMessage").as("postMessage");
-      },
-    });
+    cy.visit("/login/cliente");
 
     // Enter the username
     cy.get('input[name="correo"]').type("llopez");
@@ -22,8 +18,14 @@ describe("Test dashboard for Legales", () => {
       .click();
 
     cy.url().should("include", "/legales");
+  });
 
-    cy.spy(window, "postMessage").as("postMessage");
+  it("should see dashboard for Legales", () => {
+    cy.visit("/legales", {
+      onBeforeLoad(win) {
+        cy.spy(win, "postMessage").as("postMessage");
+      },
+    });
 
     cy.get("iframe").should("exist");
 
@@ -32,18 +34,3 @@ describe("Test dashboard for Legales", () => {
       .and("have.been.calledWithExactly", "Report loaded");
   });
 });
-
-/*
-  it("should find an iframe element inside the page for inmobiliaria", () => {
-    cy.visit("", {
-      onBeforeLoad(win) {
-        cy.spy(win, "postMessage").as("postMessage");
-      },
-    });
-    cy.get("iframe").should("exist");
-
-    cy.get("@postMessage", { timeout: 10000 })
-      .should("have.been.called")
-      .and("have.been.calledWithExactly", "Report loaded");
-  });
-  */
