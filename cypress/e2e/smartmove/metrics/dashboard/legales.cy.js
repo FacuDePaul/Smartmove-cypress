@@ -32,18 +32,3 @@ describe("Test dashboard for Legales", () => {
       .and("have.been.calledWithExactly", "Report loaded");
   });
 });
-
-/*
-  it("should find an iframe element inside the page for inmobiliaria", () => {
-    cy.visit("", {
-      onBeforeLoad(win) {
-        cy.spy(win, "postMessage").as("postMessage");
-      },
-    });
-    cy.get("iframe").should("exist");
-
-    cy.get("@postMessage", { timeout: 10000 })
-      .should("have.been.called")
-      .and("have.been.calledWithExactly", "Report loaded");
-  });
-  */

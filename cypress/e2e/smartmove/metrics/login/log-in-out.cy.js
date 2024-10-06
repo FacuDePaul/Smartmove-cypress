@@ -43,5 +43,7 @@ describe("Test Log In and Out", () => {
     cy.on("window:alert", (t) => {
       expect(t).to.contain("Por favor, verifica los datos ingresados");
     });
+
+    cy.url().should("include", "/login/cliente");
   });
 });
